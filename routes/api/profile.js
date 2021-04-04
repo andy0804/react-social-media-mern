@@ -137,4 +137,22 @@ router.get("/user/:user_id", async (req, res) => {
     res.status(500).json("Something went wrong");
   }
 });
+
+// @route DELETE api/profile
+// @desc  GET  PROFILE by id
+// @access Profile
+router.delete("/", auth, async (req, res) => {
+  try {
+    // @todo remove posts
+    console.log("delete");
+    console.log("id", req.user.id);
+    await Profile.findOneAndRemove({ user: req.user.id });
+    await User.findOneAndRemove({ _id: req.user.id });
+
+    res.json({ msg: "User deleted" });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json("Something went wrong");
+  }
+});
 module.exports = router;
