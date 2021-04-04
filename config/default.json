@@ -1,4 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://ananth123:ananth123@merndev.rpo9u.mongodb.net/test?retryWrites=true&w=majority",
-  "jwtSecret": "mysecret"
+  "mongoURI": "",
+  "jwtSecret": ""
 }
