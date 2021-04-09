@@ -7,7 +7,6 @@ import { Loading } from "../layout/Loading";
 export const Login = () => {
   let { isAuthenticated, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -27,8 +26,8 @@ export const Login = () => {
   };
   return (
     <>
-      <h1 className="large text-primary">Sign in {loading} </h1>
       {loading && <Loading />}
+      <h1 className="large text-primary">Sign in {loading} </h1>
       <form
         onSubmit={(e) => onSubmit(e)}
         className="form"

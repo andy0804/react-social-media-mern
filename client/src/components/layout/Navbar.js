@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { logout } from "../../actions/auth";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
@@ -25,6 +25,20 @@ export const Navbar = () => {
   );
   const authenticatedLinks = (
     <>
+      <li>
+        <Link
+          to="/dashboard"
+          onClick={(e) => {
+            e.preventDefault();
+            history.push({
+              pathname: "/dashboard",
+            });
+          }}
+        >
+          <i className="fas fa-user" />{" "}
+          <span className="hide-sm">Dashboard</span>
+        </Link>
+      </li>
       <li>
         <Link
           to="/"

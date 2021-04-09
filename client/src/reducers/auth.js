@@ -6,6 +6,7 @@ import {
   REGISTER_SUCCESS,
   USER_LOADED,
   LOGOUT,
+  LOGIN_REQUEST,
 } from "../types/type";
 
 const initialState = {
@@ -19,12 +20,25 @@ const auth = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case LOGIN_REQUEST:
+      return {
+        ...state,
+        isAuthenticated: false,
+        loading: true,
+      };
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAILURE:
     case LOGOUT:
       localStorage.removeItem("token");
-      return { ...state, ...payload, isAuthenticated: false, loading: false };
+      return {
+        ...state,
+        ...payload,
+        isAuthenticated: false,
+        loading: false,
+        token: null,
+        user: null,
+      };
 
     case USER_LOADED:
       return {
