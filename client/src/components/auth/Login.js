@@ -3,8 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { Link, Redirect } from "react-router-dom";
 import { login } from "../../actions/auth";
+import { Loading } from "../layout/Loading";
 export const Login = () => {
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  let { isAuthenticated, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
@@ -26,8 +27,8 @@ export const Login = () => {
   };
   return (
     <>
-      <h1 className="large text-primary">Sign in </h1>
-
+      <h1 className="large text-primary">Sign in {loading} </h1>
+      {loading && <Loading />}
       <form
         onSubmit={(e) => onSubmit(e)}
         className="form"

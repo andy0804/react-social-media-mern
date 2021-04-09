@@ -10,6 +10,8 @@ import { Alert } from "./components/layout/Alert";
 import { Provider } from "react-redux";
 import store from "./store";
 import { loadUser } from "./actions/auth";
+import { PrivateRoute } from "./hoc/PrivateRoute";
+import { Dashboard } from "./components/dashboard/Dashboard";
 
 const App = () => {
   useEffect(() => {
@@ -26,6 +28,12 @@ const App = () => {
             <Switch>
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
+              <PrivateRoute
+                test="hi"
+                exact
+                path="/dashboard"
+                component={Dashboard}
+              />
             </Switch>
           </section>
         </Fragment>

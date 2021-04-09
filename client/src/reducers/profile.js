@@ -1,0 +1,25 @@
+import { GET_PROFILE, PROFILE_ERROR } from "../types/type";
+const initialState = {
+  profile: null,
+  profiles: [],
+  repos: [],
+  loading: true,
+  error: {},
+};
+
+const profile = (state = initialState, action) => {
+  const { type, payload } = action;
+  console.log("PROFILE CALLED", action);
+
+  switch (type) {
+    case GET_PROFILE:
+      return { ...state, profile: payload, loading: false };
+
+    case PROFILE_ERROR:
+      return { ...state, error: payload, loading: false };
+    default:
+      return state;
+  }
+};
+
+export default profile;
