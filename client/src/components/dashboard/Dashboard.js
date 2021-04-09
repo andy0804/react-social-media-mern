@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getCurrentProfile } from "../../actions/profile";
 import { Loading } from "../layout/Loading";
+import { Link } from "react-router-dom";
 
 export const Dashboard = ({ test }) => {
   const { user } = useSelector((state) => state.auth);
@@ -13,7 +14,16 @@ export const Dashboard = ({ test }) => {
       <p className="lead">
         <i className="fas fa-user"> Welcome {user && user.name} </i>
       </p>
-      {profile != null ? <> Has a Profile </> : <> Does not have a profile </>}
+      {profile != null ? (
+        <> Has a Profile </>
+      ) : (
+        <>
+          <p>You have not yet setup your profile</p>
+          <Link className="btn btn-primary my-1" to="/create-profile">
+            Create Profile
+          </Link>
+        </>
+      )}
     </>
   );
   const content = loading && !profile ? <Loading /> : dashboardContent;
