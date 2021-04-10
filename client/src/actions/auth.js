@@ -19,8 +19,12 @@ export const loadUser = () => async (dispatch) => {
   try {
     const response = await api.get("/auth");
     dispatch({ type: USER_LOADED, payload: response.data });
-  } catch (error) {
-    dispatch({ type: AUTH_ERROR });
+  } catch (errors) {
+    dispatch({
+      type: AUTH_ERROR,
+      msg: errors.response.statusText,
+      status: errors.response.status,
+    });
   }
 };
 
@@ -44,7 +48,11 @@ export const register = ({ name, email, password }) => async (dispatch) => {
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
-    dispatch({ type: REGISTER_FAIL });
+    dispatch({
+      type: REGISTER_FAIL,
+      msg: errors.response.statusText,
+      status: errors.response.status,
+    });
   }
 };
 
@@ -68,7 +76,11 @@ export const login = ({ email, password }) => async (dispatch) => {
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
-    dispatch({ type: LOGIN_FAILURE });
+    dispatch({
+      type: LOGIN_FAILURE,
+      msg: errors.response.statusText,
+      status: errors.response.status,
+    });
   }
 };
 

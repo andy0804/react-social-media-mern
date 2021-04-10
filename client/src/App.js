@@ -14,6 +14,7 @@ import { PrivateRoute } from "./hoc/PrivateRoute";
 import { Dashboard } from "./components/dashboard/Dashboard";
 import { LOGOUT } from "./types/type";
 import setAuthToken from "./utils/setAuthToken";
+import { CreateProfile } from "./components/profile/create-profile/CreateProfile";
 
 const App = () => {
   useEffect(() => {
@@ -39,11 +40,11 @@ const App = () => {
             <Switch>
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute
-                test="hi"
                 exact
-                path="/dashboard"
-                component={Dashboard}
+                path="/create-profile"
+                component={CreateProfile}
               />
             </Switch>
           </section>
