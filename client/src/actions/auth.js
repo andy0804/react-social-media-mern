@@ -78,8 +78,8 @@ export const login = ({ email, password }) => async (dispatch) => {
     }
     dispatch({
       type: LOGIN_FAILURE,
-      msg: errors.response.statusText,
-      status: errors.response.status,
+      msg: error.response.statusText,
+      status: error.response.status,
     });
   }
 };
