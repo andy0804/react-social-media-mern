@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SelectControl from "../../../controls/dropdown/SelectControl";
 import { PROFESSIONAL_STATUS } from "../../../constants/Constant";
 import { Link, Redirect } from "react-router-dom";
-import { createProfile } from "../../../actions/profile";
+import { createProfile, getCurrentProfile } from "../../../actions/profile";
 import { useSelector, useDispatch } from "react-redux";
+import { Loading } from "../../layout/Loading";
 
 export const CreateProfile = ({ history }) => {
   const { profile, loading } = useSelector((state) => state.profile);
@@ -41,17 +42,54 @@ export const CreateProfile = ({ history }) => {
     youtube,
     instagram,
   } = formData;
+
+  useEffect(() => {
+    if (profile) {
+      const {
+        company,
+        website,
+        location,
+        status,
+        skills,
+        githubusername,
+        bio,
+        social,
+      } = profile;
+      if (social) {
+        toggleSocialMediaLinksDisplay(true);
+      }
+      setFormData({
+        company: company || "",
+        website: website || "",
+        location: location || "",
+        status: status || "",
+        skills: (skills && skills.join(",")) || "",
+        githubusername: githubusername || "",
+        bio: bio || "",
+        twitter: (social && social.twitter) || "",
+        facebook: (social && social.facebook) || "",
+        linkedin: (social && social.linkedin) || "",
+        youtube: (social && social.youtube) || "",
+        instagram: (social && social.instagram) || "",
+      });
+    }
+  }, [loading]);
+
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("formData", formData);
     dispatch(createProfile(formData, history, profile ? true : false));
+    window.scrollTo(0, 0);
   };
   return (
     <div>
-      <h1 className="large text-primary">Create Your Profile</h1>
+      {loading && <Loading />}
+
+      <h1 className="large text-primary">
+        {profile ? "Edit" : "Create"} Your Profile
+      </h1>
       <p className="lead">
         <i className="fas fa-user"></i> Let's get some information to make your
         profile stand out

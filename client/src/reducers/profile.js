@@ -1,5 +1,8 @@
 import {
   CLEAR_PROFILE,
+  CREATE_PROFILE_ERROR,
+  CREATE_PROFILE_REQUEST,
+  CREATE_PROFILE_SUCCESS,
   GET_PROFILE,
   GET_PROFILE_REQUEST,
   PROFILE_ERROR,
@@ -17,11 +20,15 @@ const profile = (state = initialState, action) => {
   console.log("PROFILE CALLED", action);
 
   switch (type) {
+    case CREATE_PROFILE_REQUEST:
     case GET_PROFILE_REQUEST:
       return { ...state, loading: true };
     case GET_PROFILE:
       return { ...state, profile: payload, loading: false };
-
+    case CREATE_PROFILE_SUCCESS:
+      return { ...state, loading: false };
+    case CREATE_PROFILE_ERROR:
+      return { ...state, error: payload, loading: false };
     case PROFILE_ERROR:
       return { ...state, error: payload, loading: false };
 

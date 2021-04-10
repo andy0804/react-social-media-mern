@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getCurrentProfile } from "../../actions/profile";
 import { Loading } from "../layout/Loading";
 import { Link } from "react-router-dom";
+import DashboardAction from "./DashboardAction";
 
 export const Dashboard = ({ test }) => {
   const { user } = useSelector((state) => state.auth);
@@ -15,7 +16,9 @@ export const Dashboard = ({ test }) => {
         <i className="fas fa-user"> Welcome {user && user.name} </i>
       </p>
       {profile != null ? (
-        <> Has a Profile </>
+        <>
+          <DashboardAction />{" "}
+        </>
       ) : (
         <>
           <p>You have not yet setup your profile</p>
