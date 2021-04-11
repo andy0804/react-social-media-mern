@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import SelectControl from "../../../controls/dropdown/SelectControl";
 import { PROFESSIONAL_STATUS } from "../../../constants/Constant";
-import { Link, Redirect } from "react-router-dom";
-import { createProfile, getCurrentProfile } from "../../../actions/profile";
+import { Link } from "react-router-dom";
+import { createProfile } from "../../../actions/profile";
 import { useSelector, useDispatch } from "react-redux";
 import { Loading } from "../../layout/Loading";
 
@@ -73,7 +73,7 @@ export const CreateProfile = ({ history }) => {
         instagram: (social && social.instagram) || "",
       });
     }
-  }, [loading]);
+  }, [loading, profile]);
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });

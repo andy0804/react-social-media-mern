@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getCurrentProfile } from "../../actions/profile";
+import { deleteAccount, getCurrentProfile } from "../../actions/profile";
 import { Loading } from "../layout/Loading";
 import { Link } from "react-router-dom";
 import DashboardAction from "./DashboardAction";
+import { Education } from "./Education";
+import { Experience } from "./Experience";
 
 export const Dashboard = ({ test }) => {
   const { user } = useSelector((state) => state.auth);
@@ -17,7 +19,18 @@ export const Dashboard = ({ test }) => {
       </p>
       {profile != null ? (
         <>
-          <DashboardAction />{" "}
+          <DashboardAction />
+          <Experience experience={profile.experience} />
+          <Education educations={profile.education} />
+          <div className="my-2">
+            <button
+              onClick={() => dispatch(deleteAccount())}
+              className="btn btn-danger"
+            >
+              <i className="fas fa-user-minus"></i>
+              Delete My Account
+            </button>
+          </div>
         </>
       ) : (
         <>
@@ -34,6 +47,5 @@ export const Dashboard = ({ test }) => {
   useEffect(() => {
     dispatch(getCurrentProfile());
   }, [dispatch]);
-  console.log("test", test);
   return <>{content}</>;
 };

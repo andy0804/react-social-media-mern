@@ -12,6 +12,17 @@ import {
   UPDATE_EXPERIENCE_REQUEST,
   UPDATE_EXPERIENCE_SUCCESS,
   UPDATE_EXPERIENCE_FAILURE,
+  DELETE_EDUCATION_SUCCESS,
+  DELETE_EDUCATION_FAILURE,
+  DELETE_EDUCATION_REQUEST,
+  DELETE_EXPERIENCE_SUCCESS,
+  DELETE_EXPERIENCE_FAILURE,
+  DELETE_EXPERIENCE_REQUEST,
+  DELETE_PROFILE_SUCCESS,
+  DELETE_PROFILE_REQUEST,
+  DELETE_PROFILE_FAILURE,
+  CLEAR_PROFILE,
+  LOGOUT,
 } from "../types/type";
 export const getCurrentProfile = () => async (dispatch) => {
   try {
@@ -97,7 +108,7 @@ export const updateExperience = (formData, history) => async (dispatch) => {
     const response = await api.put("/profile/experience", formData, config);
     dispatch({ type: UPDATE_EXPERIENCE_SUCCESS, payload: response.data });
     dispatch({ type: GET_PROFILE, payload: response.data });
-    dispatch(setAlert("Education Successfully updated", "success"));
+    dispatch(setAlert("Education Successfully deleted", "success"));
     history.push("/dashboard");
   } catch (error) {
     const errors = error.response.data.errors;
@@ -109,5 +120,76 @@ export const updateExperience = (formData, history) => async (dispatch) => {
       msg: error.response.statusText,
       status: error.response.status,
     });
+  }
+};
+
+//delete education
+export const deleteEducation = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_EDUCATION_REQUEST });
+
+    const response = await api.delete(`/profile/education/${id}`);
+    dispatch({ type: DELETE_EDUCATION_SUCCESS, payload: response.data });
+    dispatch({ type: GET_PROFILE, payload: response.data });
+    dispatch(setAlert("Education Successfully Deleted", "success"));
+  } catch (error) {
+    const errors = error.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
+    dispatch({
+      type: DELETE_EDUCATION_FAILURE,
+      msg: error.response.statusText,
+      status: error.response.status,
+    });
+  }
+};
+
+// delete education
+export const deleteExperience = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_EXPERIENCE_REQUEST });
+
+    const response = await api.delete(`/profile/experience/${id}`);
+    dispatch({ type: DELETE_EXPERIENCE_SUCCESS, payload: response.data });
+    dispatch({ type: GET_PROFILE, payload: response.data });
+    dispatch(setAlert("Education Successfully updated", "success"));
+  } catch (error) {
+    const errors = error.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
+    dispatch({
+      type: DELETE_EXPERIENCE_FAILURE,
+      msg: error.response.statusText,
+      status: error.response.status,
+    });
+  }
+};
+
+// delete account and profile
+
+// delete education
+export const deleteAccount = () => async (dispatch) => {
+  if (window.confirm("Are you sure ? This cannot be undone.")) {
+    try {
+      dispatch({ type: DELETE_PROFILE_REQUEST });
+
+      const response = await api.delete(`/profile/`);
+      dispatch({ type: DELETE_PROFILE_SUCCESS, payload: response.data });
+      dispatch({ type: CLEAR_PROFILE });
+      dispatch({ type: LOGOUT });
+      dispatch(setAlert("Your account has been permanently deleted.", "info"));
+    } catch (error) {
+      const errors = error.response.data.errors;
+      if (errors) {
+        errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      }
+      dispatch({
+        type: DELETE_PROFILE_FAILURE,
+        msg: error.response.statusText,
+        status: error.response.status,
+      });
+    }
   }
 };
