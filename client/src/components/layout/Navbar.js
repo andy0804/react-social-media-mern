@@ -13,7 +13,7 @@ export const Navbar = () => {
   const guestLinks = (
     <>
       <li>
-        <a href="profiles.html">Developers</a>
+        <Link to="/profiles">Developers</Link>
       </li>
       <li>
         <Link to="/register">Register</Link>
@@ -38,6 +38,9 @@ export const Navbar = () => {
           <i className="fas fa-user" />{" "}
           <span className="hide-sm">Dashboard</span>
         </Link>
+      </li>
+      <li>
+        <Link to="/profiles">Developers</Link>
       </li>
       <li>
         <Link

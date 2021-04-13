@@ -17,6 +17,8 @@ import setAuthToken from "./utils/setAuthToken";
 import { CreateProfile } from "./components/profile/create-profile/CreateProfile";
 import { AddEducation } from "./components/profile/education/AddEducation";
 import { AddExperience } from "./components/profile/experience/AddExperience";
+import { Profile } from "./components/profile/view-profile/Profile";
+import { ViewUserProfile } from "./components/profile/view-user-profile/ViewUserProfile";
 
 const App = () => {
   useEffect(() => {
@@ -42,6 +44,9 @@ const App = () => {
             <Switch>
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
+              <Route exact path="/profile/:id" component={ViewUserProfile} />
+              <Route exact path="/profiles" component={Profile} />
+
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute
                 exact

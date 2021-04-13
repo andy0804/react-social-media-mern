@@ -23,6 +23,15 @@ import {
   DELETE_PROFILE_FAILURE,
   CLEAR_PROFILE,
   LOGOUT,
+  GET_PROFILES_FAILURE,
+  GET_PROFILES_REQUEST,
+  GET_PROFILES_SUCCESS,
+  GET_PROFILE_BY_ID_REQUEST,
+  GET_PROFILE_BY_ID_SUCCESS,
+  GET_PROFILE_BY_ID_FAILURE,
+  GET_GITREPO_FAILURE,
+  GET_GITREPO_REQUEST,
+  GET_GITREPO_SUCCESS,
 } from "../types/type";
 export const getCurrentProfile = () => async (dispatch) => {
   try {
@@ -191,5 +200,68 @@ export const deleteAccount = () => async (dispatch) => {
         status: error.response.status,
       });
     }
+  }
+};
+
+// Get User Profiles
+export const getUserProfiles = () => async (dispatch) => {
+  try {
+    dispatch({ type: GET_PROFILES_REQUEST });
+
+    const response = await api.get(`/profile/`);
+    dispatch({ type: GET_PROFILES_SUCCESS, payload: response.data });
+  } catch (error) {
+    const errors = error.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
+    dispatch({
+      type: GET_PROFILES_FAILURE,
+      msg: error.response.statusText,
+      status: error.response.status,
+    });
+  }
+};
+
+// GET PROFILE BY ID
+export const getUserProfileById = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: CLEAR_PROFILE });
+    dispatch({ type: GET_PROFILE_BY_ID_REQUEST });
+
+    const response = await api.get(`/profile/user/${id}`);
+    dispatch({ type: GET_PROFILE_BY_ID_SUCCESS, payload: response.data });
+    dispatch(getGithubRepos(response.data.githubusername));
+  } catch (error) {
+    const errors = error.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
+    dispatch({
+      type: GET_PROFILE_BY_ID_FAILURE,
+      msg: error.response.statusText,
+      status: error.response.status,
+    });
+  }
+};
+
+// get hithub repos
+
+export const getGithubRepos = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: GET_GITREPO_REQUEST });
+
+    const response = await api.get(`/profile/github/${id}`);
+    dispatch({ type: GET_GITREPO_SUCCESS, payload: response.data });
+  } catch (error) {
+    const errors = error.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
+    dispatch({
+      type: GET_GITREPO_FAILURE,
+      msg: error.response.statusText,
+      status: error.response.status,
+    });
   }
 };
