@@ -44,6 +44,19 @@ export const Navbar = () => {
       </li>
       <li>
         <Link
+          to="/posts"
+          onClick={(e) => {
+            e.preventDefault();
+            history.push({
+              pathname: "/posts",
+            });
+          }}
+        >
+          <span>Posts</span>
+        </Link>
+      </li>
+      <li>
+        <Link
           to="/"
           onClick={(e) => {
             e.preventDefault();
@@ -53,7 +66,6 @@ export const Navbar = () => {
             });
           }}
         >
-          <i className="fas fa-sign-out-alt" />{" "}
           <span className="hide-sm">Logout</span>
         </Link>
       </li>
