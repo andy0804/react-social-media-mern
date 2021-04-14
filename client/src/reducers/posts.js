@@ -6,6 +6,7 @@ import {
 
 const initialState = {
   posts: [],
+  post: null,
   comments: [],
   loading: true,
   error: {},

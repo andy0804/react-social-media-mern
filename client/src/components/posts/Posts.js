@@ -2,18 +2,26 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getPosts } from "../../actions/posts";
 
+import { Loading } from "../layout/Loading";
+import PostItem from "./PostItem";
+
 const Posts = () => {
-  const { posts } = useSelector((state) => state.posts);
+  const { posts, loading } = useSelector((state) => state.posts);
+
   const dispatch = useDispatch();
   console.log("data", posts);
   useEffect(() => {
     dispatch(getPosts());
     return () => {};
   }, []);
-  return (
-    <div>
-      <h1> Posts</h1>
-    </div>
+  return loading ? (
+    <Loading />
+  ) : (
+    <>
+      {posts.map((post) => {
+        return <PostItem key={post._id} posts={post}></PostItem>;
+      })}
+    </>
   );
 };
 
