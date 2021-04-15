@@ -2,9 +2,12 @@ import React from "react";
 import Moment from "react-moment";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { deletePost, dislike, like } from "../../actions/posts";
 
 const PostItem = ({ posts }) => {
   const { user, loading } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
   console.log("Post ID", posts.user);
   console.log("LOGGED IN  ID", user._id);
 
@@ -21,11 +24,19 @@ const PostItem = ({ posts }) => {
         <p className="post-date">
           Posted on <Moment format="MM/DD/YYYY">{posts.date}</Moment>
         </p>
-        <button type="button" className="btn btn-light">
+        <button
+          onClick={() => dispatch(like(posts._id))}
+          type="button"
+          className="btn btn-light"
+        >
           <i className="fas fa-thumbs-up"></i>
           <span>{posts.likes.length}</span>
         </button>
-        <button type="button" className="btn btn-light">
+        <button
+          onClick={() => dispatch(dislike(posts._id))}
+          type="button"
+          className="btn btn-light"
+        >
           <i className="fas fa-thumbs-down"></i>
         </button>
         <Link to="/post" className="btn btn-primary">
@@ -33,7 +44,11 @@ const PostItem = ({ posts }) => {
           <span className="comment-count">{posts.comments.length}</span>
         </Link>
         {!loading && user._id === posts.user && (
-          <button type="button" className="btn btn-danger">
+          <button
+            onClick={() => dispatch(deletePost(posts._id))}
+            type="button"
+            className="btn btn-danger"
+          >
             <i className="fas fa-times"></i>
           </button>
         )}
