@@ -76,6 +76,7 @@ const profile = (state = initialState, action) => {
     case DELETE_PROFILE_FAILURE:
     case GET_PROFILES_FAILURE:
     case GET_GITREPO_FAILURE:
+      return { ...state, repos: [], loading: false };
     case GET_PROFILE_BY_ID_FAILURE:
       return { ...state, error: payload, loading: false };
     case PROFILE_ERROR:

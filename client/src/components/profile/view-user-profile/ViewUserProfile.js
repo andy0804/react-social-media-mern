@@ -22,9 +22,12 @@ export const ViewUserProfile = ({ history }) => {
   const { isAuthenticated } = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(getUserProfileById(id));
-
-    return () => {};
   }, [dispatch]);
+  useEffect(() => {
+    if (profile && profile.githubusername) {
+      dispatch(getGithubRepos(profile.githubusername));
+    }
+  }, [dispatch, profile]);
   return (
     <div>
       {loading && <Loading />}

@@ -231,7 +231,7 @@ export const getUserProfileById = (id) => async (dispatch) => {
 
     const response = await api.get(`/profile/user/${id}`);
     dispatch({ type: GET_PROFILE_BY_ID_SUCCESS, payload: response.data });
-    dispatch(getGithubRepos(response.data.githubusername));
+   // dispatch(getGithubRepos(response.data.githubusername));
   } catch (error) {
     const errors = error.response.data.errors;
     if (errors) {

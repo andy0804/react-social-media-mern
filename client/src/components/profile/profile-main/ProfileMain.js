@@ -19,41 +19,51 @@ export const ProfileMain = ({ profile }) => {
         <Link to={profile.website} target="_blank" rel="noopener noreferrer">
           <i class="fas fa-globe fa-2x"></i>
         </Link>
-        <Link
-          to={profile.social.twitter}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i class="fab fa-twitter fa-2x"></i>
-        </Link>
-        <Link
-          to={profile.social.facebook}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i class="fab fa-facebook fa-2x"></i>
-        </Link>
-        <Link
-          to={profile.social.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i class="fab fa-linkedin fa-2x"></i>
-        </Link>
-        <Link
-          to={profile.social.youtube}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i class="fab fa-youtube fa-2x"></i>
-        </Link>
-        <Link
-          to={profile.social.instagram}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i class="fab fa-instagram fa-2x"></i>
-        </Link>
+        {profile.social && profile.social.twitter && (
+          <Link
+            to={profile.social.twitter}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fab fa-twitter fa-2x"></i>
+          </Link>
+        )}
+        {profile.social && profile.social.facebook && (
+          <Link
+            to={profile.social.facebook}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fab fa-facebook fa-2x"></i>
+          </Link>
+        )}
+        {profile.social && profile.social.linkedin && (
+          <Link
+            to={profile.social.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fab fa-linkedin fa-2x"></i>
+          </Link>
+        )}
+        {profile.social && profile.social.youtube && (
+          <Link
+            to={profile.social.youtube}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fab fa-youtube fa-2x"></i>
+          </Link>
+        )}
+        {profile.social && profile.social.instagram && (
+          <Link
+            to={profile.social.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fab fa-instagram fa-2x"></i>
+          </Link>
+        )}
       </div>
     </div>
   );
