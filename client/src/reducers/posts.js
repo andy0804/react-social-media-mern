@@ -8,6 +8,9 @@ import {
   DELETE_POST_FAILURE,
   DELETE_POST_REQUEST,
   DELETE_POST_SUCCESS,
+  ADD_POST_REQUEST,
+  ADD_POST_FAILURE,
+  ADD_POST_SUCCESS,
 } from "../types/type";
 
 const initialState = {
@@ -52,6 +55,18 @@ const posts = (state = initialState, action) => {
     case DELETE_POST_REQUEST:
       return { ...state, loading: true };
     case DELETE_POST_FAILURE:
+      return { ...state, error: payload, loading: false };
+
+    // add post
+
+    case ADD_POST_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ADD_POST_SUCCESS:
+      return { ...state, posts: [payload, ...state.posts], loading: false };
+    case ADD_POST_FAILURE:
       return { ...state, error: payload, loading: false };
   }
   return state;

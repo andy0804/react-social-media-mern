@@ -1,6 +1,9 @@
 import api from "../utils/api";
 import { setAlert } from "./action";
 import {
+  ADD_POST_FAILURE,
+  ADD_POST_REQUEST,
+  ADD_POST_SUCCESS,
   DELETE_POST_FAILURE,
   DELETE_POST_REQUEST,
   DELETE_POST_SUCCESS,
@@ -92,6 +95,31 @@ export const deletePost = (id) => async (dispatch) => {
     }
     dispatch({
       type: DELETE_POST_FAILURE,
+      msg: error.response.statusText,
+      status: error.response.status,
+    });
+  }
+};
+
+export const addPost = (formData) => async (dispatch) => {
+  try {
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    dispatch({ type: ADD_POST_REQUEST });
+
+    const response = await api.post(`/posts`, formData, config);
+    dispatch({
+      type: ADD_POST_SUCCESS,
+      payload: response.data,
+    });
+    dispatch(setAlert("Post successfully added", "success"));
+  } catch (error) {
+    const errors = error.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
+    dispatch({
+      type: ADD_POST_FAILURE,
       msg: error.response.statusText,
       status: error.response.status,
     });

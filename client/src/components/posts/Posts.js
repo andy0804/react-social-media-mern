@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getPosts } from "../../actions/posts";
 
 import { Loading } from "../layout/Loading";
+import { PostForm } from "./PostForm";
 import PostItem from "./PostItem";
 
 const Posts = () => {
@@ -18,6 +19,11 @@ const Posts = () => {
     <Loading />
   ) : (
     <>
+      <h1 class="large text-primary">Posts</h1>
+      <p class="lead">
+        <i class="fas fa-user"></i> Welcome to the community!
+      </p>
+      <PostForm />
       {posts.map((post) => {
         return <PostItem key={post._id} posts={post}></PostItem>;
       })}
