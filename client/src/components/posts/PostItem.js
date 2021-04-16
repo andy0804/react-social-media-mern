@@ -3,10 +3,13 @@ import Moment from "react-moment";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { deletePost, dislike, like } from "../../actions/posts";
+import { clearProfiles } from "../../actions/profile";
+import { useHistory } from "react-router";
 
 const PostItem = ({ posts }) => {
   const { user, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   console.log("Post ID", posts.user);
   console.log("LOGGED IN  ID", user._id);
@@ -14,7 +17,16 @@ const PostItem = ({ posts }) => {
   return (
     <div className="post bg-white p-1 my-1">
       <div>
-        <Link to="/profile">
+        <Link
+          onClick={(e) => {
+            e.preventDefault();
+            dispatch(clearProfiles());
+            history.push({
+              pathname: `/profile/${posts.user}`,
+            });
+          }}
+          to={`/profile/${posts.user}`}
+        >
           <img className="round-img" src={posts.avatar} alt="" />
           <h4>{posts.name}</h4>
         </Link>

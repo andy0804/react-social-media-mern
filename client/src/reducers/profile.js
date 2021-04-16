@@ -37,6 +37,7 @@ const initialState = {
   repos: [],
   loading: true,
   error: {},
+  success: false,
 };
 
 const profile = (state = initialState, action) => {
@@ -47,8 +48,19 @@ const profile = (state = initialState, action) => {
     case CREATE_PROFILE_REQUEST:
     case GET_PROFILE_REQUEST:
     case GET_PROFILE_BY_ID_REQUEST:
+      console.log("GET PROFILE REQUEST");
+
+      return {
+        ...state,
+        profile: null,
+        loadingProfileID: true,
+        success: false,
+      };
+
     case GET_PROFILES_REQUEST:
     case GET_GITREPO_REQUEST:
+      return { ...state, repos: [], loading: true };
+
     case UPDATE_EDUCATION_REQUEST:
     case UPDATE_EXPERIENCE_REQUEST:
     case DELETE_EXPERIENCE_REQUEST:
@@ -57,7 +69,12 @@ const profile = (state = initialState, action) => {
       return { ...state, loading: true };
     case GET_PROFILE:
     case GET_PROFILE_BY_ID_SUCCESS:
-      return { ...state, profile: payload, loading: false };
+      return {
+        ...state,
+        profile: payload,
+        loadingProfileID: false,
+        success: true,
+      };
     case GET_PROFILES_SUCCESS:
       return { ...state, profiles: payload, loading: false };
     case GET_GITREPO_SUCCESS:
@@ -78,7 +95,12 @@ const profile = (state = initialState, action) => {
     case GET_GITREPO_FAILURE:
       return { ...state, repos: [], loading: false };
     case GET_PROFILE_BY_ID_FAILURE:
-      return { ...state, error: payload, loading: false };
+      return {
+        ...state,
+        error: payload,
+        loadingProfileID: false,
+        success: false,
+      };
     case PROFILE_ERROR:
       return {
         ...state,
@@ -89,7 +111,8 @@ const profile = (state = initialState, action) => {
 
     case DELETE_PROFILE_SUCCESS:
     case CLEAR_PROFILE:
-      return { ...state, profile: null, repos: [], loading: false };
+      console.log("Clearing Profile");
+      return { ...state, profile: null, repos: [], success: false };
 
     default:
       return state;

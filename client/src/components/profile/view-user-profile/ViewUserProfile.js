@@ -1,6 +1,10 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getGithubRepos, getUserProfileById } from "../../../actions/profile";
+import {
+  clearProfiles,
+  getGithubRepos,
+  getUserProfileById,
+} from "../../../actions/profile";
 import { Loading } from "../../layout/Loading";
 import {
   BrowserRouter as Router,
@@ -18,20 +22,27 @@ import ProfileEducation from "../profile-education/ProfileEducation";
 export const ViewUserProfile = ({ history }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { profile, loading, repos } = useSelector((state) => state.profile);
+  const { profile, loadingProfileID, repos, success } = useSelector(
+    (state) => state.profile
+  );
+  console.log("value of success", success);
+
   const { isAuthenticated } = useSelector((state) => state.auth);
+
   useEffect(() => {
-    dispatch(getUserProfileById(id));
+    dispatch(getUserProfileById(id)).then(() => {
+      console.log("profile", profile);
+    });
   }, [dispatch]);
   useEffect(() => {
-    if (profile && profile.githubusername) {
+    if (profile && profile.githubusername && success) {
       dispatch(getGithubRepos(profile.githubusername));
     }
-  }, [dispatch, profile]);
+  }, [dispatch, profile, loadingProfileID]);
   return (
     <div>
-      {loading && <Loading />}
-      {!loading && profile && (
+      {loadingProfileID && <Loading />}
+      {!loadingProfileID && profile && (
         <>
           <Link to="/profiles" className="btn btn-light">
             Back To Profiles
@@ -50,7 +61,7 @@ export const ViewUserProfile = ({ history }) => {
           </div>
         </>
       )}
-      {!loading && profile && repos && <Github repos={repos} />}
+      {!loadingProfileID && profile && repos && <Github repos={repos} />}
     </div>
   );
 };

@@ -226,12 +226,10 @@ export const getUserProfiles = () => async (dispatch) => {
 // GET PROFILE BY ID
 export const getUserProfileById = (id) => async (dispatch) => {
   try {
-    dispatch({ type: CLEAR_PROFILE });
     dispatch({ type: GET_PROFILE_BY_ID_REQUEST });
 
     const response = await api.get(`/profile/user/${id}`);
     dispatch({ type: GET_PROFILE_BY_ID_SUCCESS, payload: response.data });
-   // dispatch(getGithubRepos(response.data.githubusername));
   } catch (error) {
     const errors = error.response.data.errors;
     if (errors) {
@@ -245,6 +243,9 @@ export const getUserProfileById = (id) => async (dispatch) => {
   }
 };
 
+export const clearProfiles = () => (dispatch) => {
+  dispatch({ type: CLEAR_PROFILE });
+};
 // get hithub repos
 
 export const getGithubRepos = (id) => async (dispatch) => {
