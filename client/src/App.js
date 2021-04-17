@@ -20,6 +20,7 @@ import { AddExperience } from "./components/profile/experience/AddExperience";
 import { Profile } from "./components/profile/view-profile/Profile";
 import { ViewUserProfile } from "./components/profile/view-user-profile/ViewUserProfile";
 import Posts from "./components/posts/Posts";
+import { Post } from "./components/posts/Post";
 
 const App = () => {
   useEffect(() => {
@@ -47,10 +48,9 @@ const App = () => {
               <Route exact path="/register" component={Register} />
               <Route exact path="/profile/:id" component={ViewUserProfile} />
               <Route exact path="/profiles" component={Profile} />
-
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/posts" component={Posts} />
-
+              <PrivateRoute exact path="/post/:id" component={Post} />
               <PrivateRoute
                 exact
                 path="/create-profile"
