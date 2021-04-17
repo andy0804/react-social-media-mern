@@ -9,7 +9,7 @@ import { Experience } from "./Experience";
 
 export const Dashboard = ({ test }) => {
   const { user } = useSelector((state) => state.auth);
-  const { profile, loading } = useSelector((state) => state.profile);
+  const { profile, loadingProfileID } = useSelector((state) => state.profile);
   console.log("data", profile);
   const dashboardContent = (
     <>
@@ -42,7 +42,7 @@ export const Dashboard = ({ test }) => {
       )}
     </>
   );
-  const content = loading && !profile ? <Loading /> : dashboardContent;
+  const content = loadingProfileID && !profile ? <Loading /> : dashboardContent;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCurrentProfile());
