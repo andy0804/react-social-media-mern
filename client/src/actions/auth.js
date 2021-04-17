@@ -57,7 +57,6 @@ export const register = ({ name, email, password }) => async (dispatch) => {
 };
 
 export const login = ({ email, password }) => async (dispatch) => {
-  console.log("Hey");
   dispatch({ type: LOGIN_REQUEST });
 
   const config = {

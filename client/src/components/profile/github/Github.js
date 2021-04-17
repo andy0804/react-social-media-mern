@@ -1,10 +1,6 @@
-import React, { Fragment, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getGithubRepos } from "../../../actions/profile";
+import React from "react";
 
 const Github = ({ repos }) => {
-  console.log("repos", repos);
-
   return (
     <>
       <div>

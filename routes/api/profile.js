@@ -71,7 +71,6 @@ router.post(
       profilefields.skills = skills.split(",").map((skill) => skill.trim());
     }
     // build social object
-    console.log("Here.......");
     profilefields.social = {};
     if (youtube) profilefields.social.youtube = youtube;
     if (linkedin) profilefields.social.linkedin = linkedin;
@@ -80,7 +79,6 @@ router.post(
     if (twitter) profilefields.social.twitter = twitter;
 
     try {
-      console.log("Here find profile.......");
 
       let profile = await Profile.findOne({ user: req.user.id });
       if (profile) {
@@ -92,14 +90,12 @@ router.post(
 
         return res.json(profile);
       }
-      console.log("here", JSON.stringify(profilefields));
       //create
       profile = new Profile(profilefields);
 
       await profile.save();
       res.json(profile);
     } catch (e) {
-      console.log(err.message);
     }
   }
 );
@@ -112,7 +108,6 @@ router.get("/", async (req, res) => {
     const profiles = await Profile.find().populate("user", ["name", "avatar"]);
     res.json(profiles);
   } catch (error) {
-    console.log(error.message);
     res.status(500).json("Something went wrong");
   }
 });

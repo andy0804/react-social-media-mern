@@ -40,8 +40,6 @@ const posts = (state = initialState, action) => {
     case GET_POSTS_FAILURE:
       return { ...state, error: payload, loading: false };
     case UPDATE_POST_SUCCESS:
-      console.log("ID", payload.id);
-
       return {
         ...state,
         loading: false,
@@ -101,13 +99,6 @@ const posts = (state = initialState, action) => {
     case DELETE_COMMENT_REQUEST:
       return { ...state, loading: true };
     case DELETE_COMMENT_SUCCESS:
-      const postOriginal = state.post.comments;
-      const afterFilters = state.post.comments.filter(
-        (comment) => comment._id !== payload.id
-      );
-      console.log("ORIGINAL", postOriginal);
-      console.log("AFTER", afterFilters);
-
       return {
         ...state,
         loading: false,
@@ -120,8 +111,9 @@ const posts = (state = initialState, action) => {
       };
     case DELETE_COMMENT_FAILURE:
       return { ...state, loading: false, error: payload };
+    default:
+      return state;
   }
-  return state;
 };
 
 export default posts;

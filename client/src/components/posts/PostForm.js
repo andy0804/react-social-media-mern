@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addPost } from "../../actions/posts";
 
 export const PostForm = () => {
@@ -9,7 +9,6 @@ export const PostForm = () => {
   const submitPost = (e) => {
     e.preventDefault();
     dispatch(addPost(formData));
-    console.log("object", formData);
   };
   const { text } = formData;
   const onChange = (e) =>

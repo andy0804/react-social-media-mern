@@ -13,7 +13,7 @@ export const Post = ({ match }) => {
 
   useEffect(() => {
     dispatch(getPost(match.params.id));
-  }, [match.params.id]);
+  }, [dispatch, match.params.id]);
 
   return (
     <div>

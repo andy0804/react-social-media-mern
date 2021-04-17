@@ -30,7 +30,6 @@ export const AddEducation = ({ history }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData, "EDUCATION");
     dispatch(updateEducation(formData, history));
     window.scrollTo(0, 0);
   };

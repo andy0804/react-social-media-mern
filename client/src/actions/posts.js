@@ -90,7 +90,7 @@ export const deletePost = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_POST_REQUEST });
 
-    const response = await api.delete(`/posts/${id}`);
+    await api.delete(`/posts/${id}`);
     dispatch({
       type: DELETE_POST_SUCCESS,
       payload: { id },

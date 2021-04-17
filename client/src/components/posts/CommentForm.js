@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addComment } from "../../actions/posts";
 
 const CommentForm = ({ id }) => {
@@ -11,7 +11,6 @@ const CommentForm = ({ id }) => {
     e.preventDefault();
 
     dispatch(addComment(id, formData));
-    console.log(formData, id);
   };
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

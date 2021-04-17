@@ -23,7 +23,6 @@ export const AddExperience = ({ history }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData, "EXPERIENCE");
     dispatch(updateExperience(formData, history));
     window.scrollTo(0, 0);
   };

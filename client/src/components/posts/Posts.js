@@ -10,11 +10,10 @@ const Posts = () => {
   const { posts, loading } = useSelector((state) => state.posts);
 
   const dispatch = useDispatch();
-  console.log("data", posts);
   useEffect(() => {
     dispatch(getPosts());
     return () => {};
-  }, []);
+  }, [dispatch]);
   return loading ? (
     <Loading />
   ) : (

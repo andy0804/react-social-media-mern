@@ -42,14 +42,11 @@ const initialState = {
 
 const profile = (state = initialState, action) => {
   const { type, payload } = action;
-  console.log("PROFILE CALLED", action);
 
   switch (type) {
     case CREATE_PROFILE_REQUEST:
     case GET_PROFILE_REQUEST:
     case GET_PROFILE_BY_ID_REQUEST:
-      console.log("GET PROFILE REQUEST");
-
       return {
         ...state,
         profile: null,
@@ -111,7 +108,6 @@ const profile = (state = initialState, action) => {
 
     case DELETE_PROFILE_SUCCESS:
     case CLEAR_PROFILE:
-      console.log("Clearing Profile");
       return { ...state, profile: null, repos: [], success: false };
 
     default:

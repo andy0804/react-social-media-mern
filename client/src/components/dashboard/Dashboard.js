@@ -10,7 +10,6 @@ import { Experience } from "./Experience";
 export const Dashboard = ({ test }) => {
   const { user } = useSelector((state) => state.auth);
   const { profile, loadingProfileID } = useSelector((state) => state.profile);
-  console.log("data", profile);
   const dashboardContent = (
     <>
       <h1 className="large text-primary">Dashboard</h1>

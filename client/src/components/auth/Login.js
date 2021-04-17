@@ -22,7 +22,7 @@ export const Login = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(login({ email: formData.email, password: formData.password }));
-    console.log(formData, "formData");
+  
   };
   return (
     <>

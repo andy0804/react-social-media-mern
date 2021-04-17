@@ -37,7 +37,6 @@ export const Register = () => {
       );
     }
 
-    console.log(formData, "formData");
   };
   return (
     <>

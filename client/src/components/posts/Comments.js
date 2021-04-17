@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteComment } from "../../actions/posts";
 
 const Comments = ({ comments, id }) => {
-  const { user, loading } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   return (

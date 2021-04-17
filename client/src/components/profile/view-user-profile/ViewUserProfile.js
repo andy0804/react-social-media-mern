@@ -1,19 +1,8 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  clearProfiles,
-  getGithubRepos,
-  getUserProfileById,
-} from "../../../actions/profile";
+import { getGithubRepos, getUserProfileById } from "../../../actions/profile";
 import { Loading } from "../../layout/Loading";
-import {
-  BrowserRouter as Router,
-  Link,
-  Route,
-  Switch,
-  useParams,
-} from "react-router-dom";
-import Moment from "react-moment";
+import { Link, useParams } from "react-router-dom";
 import Github from "../github/Github";
 import { ProfileMain } from "../profile-main/ProfileMain";
 import ProfileSkills from "../profile-skills/ProfileSkills";
@@ -25,20 +14,17 @@ export const ViewUserProfile = ({ history }) => {
   const { profile, loadingProfileID, repos, success } = useSelector(
     (state) => state.profile
   );
-  console.log("value of success", success);
 
   const { isAuthenticated } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(getUserProfileById(id)).then(() => {
-      console.log("profile", profile);
-    });
-  }, [dispatch]);
+    dispatch(getUserProfileById(id)).then(() => {});
+  }, [dispatch, id]);
   useEffect(() => {
     if (profile && profile.githubusername && success) {
       dispatch(getGithubRepos(profile.githubusername));
     }
-  }, [dispatch, profile, loadingProfileID]);
+  }, [dispatch, profile, loadingProfileID, success]);
   return (
     <div>
       {loadingProfileID && <Loading />}

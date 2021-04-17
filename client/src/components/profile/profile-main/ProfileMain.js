@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Link,
-  Route,
-  Switch,
-  useParams,
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 export const ProfileMain = ({ profile }) => {
   return (
     <div class="profile-top bg-primary p-2">
